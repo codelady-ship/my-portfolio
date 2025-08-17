@@ -1,0 +1,1 @@
+Stores contact form submissions from Entiqe's personal portfolio website, including name, email, message, and submission date.
