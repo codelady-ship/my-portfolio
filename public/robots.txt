@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://my-portfolio-eta-mocha-32.vercel.app/sitemap.xml

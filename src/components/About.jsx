@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import aboutbg from '/aboutbg.png';
 import ModelViewer from './model/ModelViewer';
+import usePageMeta from '../hooks/usePageMeta';
 
 // Import logos
 import htmlLogo from '../assets/tech/html.png';
@@ -23,6 +24,11 @@ import postmanLogo from '../assets/tech/postman.png';
 
 const About = () => {
   const [showEducation, setShowEducation] = useState(false);
+  usePageMeta({
+    title: 'About',
+    description: 'About Antiqa Jalilova: skills (React, Node.js, MongoDB, Next.js, Java) and courses (Jet Academy MERN, TechnoEra Java, Andersen QA).',
+    path: '/about',
+  });
 
   const techStack = [
   { src: htmlLogo, name: 'HTML' },
@@ -45,13 +51,13 @@ const About = () => {
 
 
   return (
-    <div
-      className="min-h-screen bg-cover bg-center bg-no-repeat flex flex-col lg:flex-row items-center justify-evenly px-4 py-8"
+    <section
+      className="min-h-screen bg-cover bg-center bg-no-repeat flex flex-col lg:flex-row items-center justify-evenly px-4 pt-24 pb-8 gap-8"
       style={{ backgroundImage: `url(${aboutbg})` }}
     >
       {/* Left: About & 3D Model */}
-      <div className="animate-slide-in-left text-yellow-100 max-w-xl w-full p-4 bg-black bg-opacity-60 rounded-xl mb-10 lg:mb-0 mt-20">
-        <h2 className="text-3xl font-bold mb-4">About Me</h2>
+      <div className="animate-slide-in-left text-yellow-100 max-w-xl w-full p-4 bg-black bg-opacity-60 rounded-xl">
+        <h1 className="text-3xl font-bold mb-4">About Me</h1>
         <p className="mb-4">
           I am a passionate and motivated individual with a growing interest in web technologies and digital tools.
         </p>
@@ -60,12 +66,13 @@ const About = () => {
         </p>
         <div className="mb-4">
           <ModelViewer
-           modelPath="/models/painter_of_stars.glb"
-             scale={1.0}
-             position={[0, -0.1, 0]}
-             rotation={[0, 0, 0]} 
+            modelPath="/models/painter_of_stars.glb"
+            poster="/models/posters/painter_of_stars.webp"
+            alt="3D model of a painter of stars with purple hair"
+            scale={1.0}
+            position={[0, -0.1, 0]}
+            rotation={[0, 0, 0]}
           />
- 
           <p className="text-sm mt-2 text-center italic text-gray-400">3D Model Visualization</p>
         </div>
       </div>
@@ -73,8 +80,10 @@ const About = () => {
       {/* Right: Skills & Education */}
       <div className="animate-slide-in-right w-full max-w-xl bg-black bg-opacity-60 p-4 rounded-xl text-white">
         {/* Toggle buttons */}
-        <div className="flex justify-start gap-4 mb-6 mt-10">
+        <div className="flex justify-start gap-4 mb-6 mt-4" role="group" aria-label="Show skills or courses">
           <button
+            type="button"
+            aria-pressed={!showEducation}
             onClick={() => setShowEducation(false)}
             className={`px-4 py-2 rounded-full font-semibold ${
               !showEducation ? 'bg-yellow-600 text-black' : 'bg-gray-700'
@@ -83,6 +92,8 @@ const About = () => {
             Skills
           </button>
           <button
+            type="button"
+            aria-pressed={showEducation}
             onClick={() => setShowEducation(true)}
             className={`px-4 py-2 rounded-full font-semibold ${
               showEducation ? 'bg-yellow-600 text-black' : 'bg-gray-700'
@@ -107,13 +118,13 @@ const About = () => {
              <p className="text-sm text-yellow-100">
               Learned object-oriented programming, JDBC, Spring Boot, and REST API development using Java.
              </p>
-             <p>📍 TechnoEra Academy, 08.2025 - continue</p>
+             <p>📍 TechnoEra Academy, 08.2025 - present</p>
             </div>
             <div className='hover:border hover:border-yellow-400 hover:rounded-xl p-2 transition duration-300 ease-in-out'>
              <p>🎓 Auto QA Java for Beginners Course</p>
              <p className="text-sm text-yellow-100">
-              Theoretical training curriculum consists of theory, practice and home tasks;</p>
-             <p>📍 Andersen Trainee Program, 08.2025 - continue</p>
+              Test automation with Java: theory, hands-on practice and home tasks.</p>
+             <p>📍 Andersen Trainee Program, 08.2025 - present</p>
             </div>
           </div>
         ) : (
@@ -123,14 +134,14 @@ const About = () => {
                 key={index}
                 className="flex flex-col items-center hover:border hover:border-yellow-400 hover:rounded-xl p-2 transition duration-300 ease-in-out"
               >
-                <img src={tech.src} alt={tech.name} className="w-12 h-12 mb-1" />
+                <img src={tech.src} alt={`${tech.name} logo`} width="48" height="48" loading="lazy" className="w-12 h-12 mb-1 object-contain" />
                 <span className="text-sm font-semibold text-white">{tech.name}</span>
               </div>
             ))}
           </div>
         )}
       </div>
-    </div>
+    </section>
   );
 };
 
