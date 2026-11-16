@@ -1,57 +1,54 @@
-import { FaGithub } from 'react-icons/fa';
+import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 
-const ProjectCard = ({ title, description, tech, githubLink, backendLink, image }) => {
+const linkClass =
+  'hover:text-yellow-300 focus-visible:text-yellow-300 transition flex items-center gap-1 rounded px-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-yellow-400';
+
+const ProjectCard = ({ title, description, tech, githubLink, backendLink, liveLink, image }) => {
   return (
-    <div className="relative group w-full max-w-md rounded-lg overflow-hidden shadow-lg cursor-pointer">
+    <article className="relative group w-full max-w-md mx-auto rounded-lg overflow-hidden shadow-lg bg-gray-900">
       <img
         src={image}
-        alt={title}
-        className="w-full h-56 object-cover transition-transform duration-300 group-hover:scale-110"
+        alt={`Screenshot of ${title}`}
+        width="448"
+        height="224"
+        loading="lazy"
+        decoding="async"
+        className="w-full h-56 object-cover transition-transform duration-300 md:group-hover:scale-110"
       />
 
-      <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center p-6 text-center text-yellow-100">
-        <h3 className="text-xl font-bold mb-2">{title}</h3>
-        <p className="text-sm mb-4">{description}</p>
+      {/* Below md: details shown under the image. md+: overlay on hover/focus */}
+      <div className="bg-gray-900 md:bg-black md:bg-opacity-75 md:absolute md:inset-0 md:opacity-0 md:group-hover:opacity-100 md:group-focus-within:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center p-4 sm:p-6 text-center text-yellow-100">
+        <h2 className="text-lg sm:text-xl font-bold mb-2">{title}</h2>
+        <p className="text-sm mb-3 line-clamp-3">{description}</p>
 
-        <div className="flex flex-wrap justify-center gap-2 mb-4">
-          {tech.map((item, index) => (
-            <span
-              key={index}
-              className="bg-yellow-500 text-black px-2 py-1 rounded text-xs"
-            >
+        <ul className="flex flex-wrap justify-center gap-2 mb-3" aria-label="Tech stack">
+          {tech.map((item) => (
+            <li key={item} className="bg-yellow-500 text-black px-2 py-1 rounded text-xs">
               {item}
-            </span>
+            </li>
           ))}
-        </div>
+        </ul>
 
-        <div className="flex gap-6 mt-2">
-          <a
-            href={githubLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-yellow-300 transition flex items-center gap-1"
-            title="Frontend Repository"
-          >
-            <FaGithub className="text-2xl" />
-            <span className="hidden sm:inline">Frontend</span>
+        <div className="flex flex-wrap justify-center gap-x-5 gap-y-2">
+          {liveLink && (
+            <a href={liveLink} target="_blank" rel="noopener noreferrer" className={linkClass} aria-label={`${title} - live demo`}>
+              <FaExternalLinkAlt className="text-lg" aria-hidden="true" />
+              <span>Live demo</span>
+            </a>
+          )}
+          <a href={githubLink} target="_blank" rel="noopener noreferrer" className={linkClass} aria-label={`${title} - source code on GitHub`}>
+            <FaGithub className="text-2xl" aria-hidden="true" />
+            <span>{backendLink ? 'Frontend' : 'Code'}</span>
           </a>
-
           {backendLink && (
-  <a
-    href={backendLink}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="hover:text-yellow-300 transition flex items-center gap-1"
-    title="Backend Repository"
-  >
-    <FaGithub className="text-2xl" />
-    <span className="hidden sm:inline">Backend</span>
-  </a>
-)}
-
+            <a href={backendLink} target="_blank" rel="noopener noreferrer" className={linkClass} aria-label={`${title} - backend code on GitHub`}>
+              <FaGithub className="text-2xl" aria-hidden="true" />
+              <span>Backend</span>
+            </a>
+          )}
         </div>
       </div>
-    </div>
+    </article>
   );
 };
 
