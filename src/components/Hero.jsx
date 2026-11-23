@@ -44,6 +44,9 @@ const Hero = () => {
         <p className="text-lg md:text-xl text-yellow-100 mb-2 tracking-widest uppercase">
           Welcome to my portfolio
         </p>
+        <p className="inline-block mb-3 px-3 py-0.5 rounded-full border border-yellow-100/40 text-xs text-yellow-100/80 tracking-widest">
+          v1 · 2025
+        </p>
         <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">Hi, I'm Antiqa</h1>
         <p className="text-xl md:text-3xl text-yellow-100 transition-all duration-500">{texts[index]}</p>
 
